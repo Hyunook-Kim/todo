@@ -1,7 +1,7 @@
 export interface Todo {
   id: string;
   text: string;
-  status: StatusType | "0" | "1";
+  status: StatusType;
 }
 
 export enum StatusType {
