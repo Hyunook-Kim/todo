@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusType, Todo } from "../../models/Todo";
+import { TodoStatus, Todo } from "../../models/Todo";
 import { FaTrashAlt } from "react-icons/fa";
 
 interface IProps {
@@ -12,7 +12,7 @@ const TodoElement: React.FC<IProps> = ({ todo, onUpdate, onDelete }) => {
   const { text, status } = todo;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const status = e.target.checked ? StatusType.DONE : StatusType.ACTIVE;
+    const status = e.target.checked ? TodoStatus.done : TodoStatus.active;
     onUpdate({ ...todo, status });
   };
 
@@ -23,7 +23,7 @@ const TodoElement: React.FC<IProps> = ({ todo, onUpdate, onDelete }) => {
       <input
         type="checkbox"
         id="checkbox"
-        checked={status === StatusType.DONE}
+        checked={status === TodoStatus.done}
         onChange={handleChange}
       />
       <label htmlFor="checkbox">{text}</label>
