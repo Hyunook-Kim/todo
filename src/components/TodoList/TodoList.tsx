@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import AddTodo from "../AddTodo/AddTodo";
 import TodoElement from "../Todo/TodoElement";
-import { StatusType, Todo } from "../../models/Todo";
+import {
+  TodoStatusFilterType,
+  Todo,
+  TodoStatus,
+  TodoStatusFilter,
+} from "../../models/Todo";
 
-export default function TodoList() {
+interface IProps {
+  statusFiltered: TodoStatusFilterType;
+}
+
+const TodoList: React.FC<IProps> = ({ statusFiltered }) => {
   const [todos, setTodos] = useState<Todo[]>([
-    { id: "1", text: "nice", status: StatusType.ACTIVE },
-    { id: "2", text: "good", status: StatusType.ACTIVE },
+    { id: "1", text: "nice", status: TodoStatus.active },
+    { id: "2", text: "good", status: TodoStatus.active },
   ]);
 
   const handleAdd = (todo: Todo) => setTodos([...todos, todo]);
@@ -19,10 +28,15 @@ export default function TodoList() {
     setTodos(todos.filter((todo) => todo.id !== deletedId));
   };
 
+  const todosWithStatusFiltered =
+    statusFiltered === TodoStatusFilter.all
+      ? todos
+      : todos.filter((todo) => todo.status === statusFiltered);
+
   return (
     <section>
       <ul>
-        {todos.map((item) => (
+        {todosWithStatusFiltered.map((item) => (
           <TodoElement
             key={item.id}
             todo={item}
@@ -34,4 +48,6 @@ export default function TodoList() {
       <AddTodo onAdd={handleAdd} />
     </section>
   );
-}
+};
+
+export default TodoList;

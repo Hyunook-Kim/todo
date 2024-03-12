@@ -1,15 +1,21 @@
 export interface Todo {
   id: string;
   text: string;
-  status: StatusType | "0" | "1";
+  status: TodoStatusType;
 }
 
-export enum StatusType {
-  ACTIVE = 0,
-  DONE = 1,
-}
+export const TodoStatus = {
+  active: "Active",
+  done: "Done",
+} as const;
 
-export const StatusTypeNameMap = {
-  [StatusType.ACTIVE]: "Active",
-  [StatusType.DONE]: "Done",
-};
+// export type TodoStatusType = "Active" | "Done"
+export type TodoStatusType = (typeof TodoStatus)[keyof typeof TodoStatus];
+
+export const TodoStatusFilter = {
+  ...TodoStatus,
+  all: "All",
+} as const;
+
+export type TodoStatusFilterType =
+  (typeof TodoStatusFilter)[keyof typeof TodoStatusFilter];
