@@ -13,8 +13,8 @@ export const TodoStatus = {
 export type TodoStatusType = (typeof TodoStatus)[keyof typeof TodoStatus];
 
 export const TodoStatusFilter = {
-  ...TodoStatus,
   all: "All",
+  ...TodoStatus,
 } as const;
 
 export type TodoStatusFilterType =
