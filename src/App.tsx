@@ -10,13 +10,13 @@ function App() {
   );
 
   return (
-    <div>
+    <>
       <Header
         statusFiltered={statusFiltered}
         onStatusFilteredChange={setStatusFiltered}
       />
       <TodoList statusFiltered={statusFiltered} />
-    </div>
+    </>
   );
 }
 

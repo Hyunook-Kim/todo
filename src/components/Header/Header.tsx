@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { TodoStatusFilterType, TodoStatusFilter } from "../../models/Todo";
+import styles from "./Header.module.css";
 
 interface IProps {
   statusFiltered: TodoStatusFilterType;
@@ -14,11 +15,16 @@ const Header: React.FC<IProps> = ({
     Object.values(TodoStatusFilter);
 
   return (
-    <header>
-      <ul>
+    <header className={styles.header}>
+      <ul className={styles.filters}>
         {statusFilterTypes.map((statusFilterType, index) => (
           <li key={index}>
-            <button onClick={() => onStatusFilteredChange(statusFilterType)}>
+            <button
+              className={`${styles.filter} ${
+                statusFiltered === statusFilterType && styles.selected
+              }`}
+              onClick={() => onStatusFilteredChange(statusFilterType)}
+            >
               {statusFilterType}
             </button>
           </li>

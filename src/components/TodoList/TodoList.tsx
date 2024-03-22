@@ -7,6 +7,7 @@ import {
   TodoStatus,
   TodoStatusFilter,
 } from "../../models/Todo";
+import styles from "./TodoList.module.css";
 
 interface IProps {
   statusFiltered: TodoStatusFilterType;
@@ -34,8 +35,8 @@ const TodoList: React.FC<IProps> = ({ statusFiltered }) => {
       : todos.filter((todo) => todo.status === statusFiltered);
 
   return (
-    <section>
-      <ul>
+    <section className={styles.container}>
+      <ul className={styles.list}>
         {todosWithStatusFiltered.map((item) => (
           <TodoElement
             key={item.id}
