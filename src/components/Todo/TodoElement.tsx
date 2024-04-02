@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const TodoElement: React.FC<IProps> = ({ todo, onUpdate, onDelete }) => {
-  const { text, status } = todo;
+  const { id, text, status } = todo;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const status = e.target.checked ? TodoStatus.done : TodoStatus.active;
@@ -24,11 +24,11 @@ const TodoElement: React.FC<IProps> = ({ todo, onUpdate, onDelete }) => {
       <input
         className={styles.checkbox}
         type="checkbox"
-        id="checkbox"
+        id={id}
         checked={status === TodoStatus.done}
         onChange={handleChange}
       />
-      <label htmlFor="checkbox" className={styles.text}>
+      <label htmlFor={id} className={styles.text}>
         {text}
       </label>
 

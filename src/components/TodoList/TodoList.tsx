@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddTodo from "../AddTodo/AddTodo";
 import TodoElement from "../Todo/TodoElement";
 import {
@@ -14,11 +14,7 @@ interface IProps {
 }
 
 const TodoList: React.FC<IProps> = ({ statusFiltered }) => {
-  const [todos, setTodos] = useState<Todo[]>([
-    { id: "1", text: "nice", status: TodoStatus.active },
-    { id: "2", text: "good", status: TodoStatus.active },
-  ]);
-
+  const [todos, setTodos] = useState<Todo[]>(() => getTodos());
   const handleAdd = (todo: Todo) => setTodos([...todos, todo]);
 
   const handleUpdate = (updated: Todo) => {
@@ -33,6 +29,10 @@ const TodoList: React.FC<IProps> = ({ statusFiltered }) => {
     statusFiltered === TodoStatusFilter.all
       ? todos
       : todos.filter((todo) => todo.status === statusFiltered);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <section className={styles.container}>
@@ -50,5 +50,10 @@ const TodoList: React.FC<IProps> = ({ statusFiltered }) => {
     </section>
   );
 };
+
+function getTodos(): Todo[] {
+  const todos = localStorage.getItem("todos");
+  return todos ? JSON.parse(todos) : [];
+}
 
 export default TodoList;

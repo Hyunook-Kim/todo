@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import TodoList from "./components/TodoList/TodoList";
 import { TodoStatusFilterType, TodoStatusFilter } from "./models/Todo";
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 function App() {
   const [statusFiltered, setStatusFiltered] = useState<TodoStatusFilterType>(
@@ -10,13 +11,13 @@ function App() {
   );
 
   return (
-    <>
+    <DarkModeProvider>
       <Header
         statusFiltered={statusFiltered}
         onStatusFilteredChange={setStatusFiltered}
       />
       <TodoList statusFiltered={statusFiltered} />
-    </>
+    </DarkModeProvider>
   );
 }
 
